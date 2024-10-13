@@ -1,0 +1,25 @@
+# This is a Databricks asset bundle definition for template.
+# See https://docs.databricks.com/dev-tools/bundles/index.html for documentation.
+bundle:
+  name: template
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: { default_workspace_host }
+
+  prod:
+    mode: production
+    workspace:
+      host: { dev_workspace_host }
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
+    permissions:
+      - user_name: ${workspace.current_user.userName}
+        level: CAN_MANAGE
+    run_as:
+      user_name: ${workspace.current_user.userName}

@@ -1,0 +1,13 @@
+# The main pipeline for template
+resources:
+  pipelines:
+    template_pipeline:
+      name: template_pipeline
+      catalog: a_catalog
+      target: template_${bundle.environment}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: ${workspace.file_path}/src
